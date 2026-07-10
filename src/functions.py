@@ -1,6 +1,7 @@
 from textnode import TextNode, TextType
 import re
-
+from blocks import block_to_block_type, BlockType
+from htmlnode import HTMLNode
 def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: TextType) -> list[TextNode]:
     new_nodes = []
     for node in old_nodes:
@@ -13,7 +14,8 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
         split_texts = node.text.split(delimiter)
         temp: list[TextNode] = []
         # I guess if we have valid syntax then there should always be an odd number of split results
-        if len(split_texts)%2 == 0:
+        pattern = f"{re.escape(delimiter)}.*?{re.escape(delimiter)}"
+        if len(re.findall(pattern, node.text)) != node.text.count(delimiter)/2:
             raise Exception("Invalid markdown syntax")
         else:
             #keeping track of the sections inside delimiters, they will always interchange with those outside
@@ -91,4 +93,14 @@ def text_to_textnodes(text: str) -> list[TextNode]:
     nodes = split_nodes_image(nodes)
     nodes = split_nodes_link(nodes)
     return nodes
+
+def markdown_to_blocks(markdown: str) -> list[str]:
+    blocks = markdown.split("\n\n")
+    result = []
+    for block in blocks:
+        block = block.strip()
+        if block == "":
+            continue
+        result.append(block)
+    return result
 
