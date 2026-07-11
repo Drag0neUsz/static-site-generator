@@ -462,6 +462,122 @@ the **same** even with inline stuff
             "<div><h1>Heading 1</h1><h3>Heading 3</h3><h6>Heading 6</h6></div>"
         )
 
+    def test_paragraphs_with_newlines(self):
+        # Case 1: Dwa akapity z podziałami linii wewnątrz pierwszego
+        md = (
+            "This is **bolded** paragraph\n"
+            "text in a p\ntag here\n\n"
+            "This is another paragraph with _italic_ text and `code` here"
+        )
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        
+        expected = (
+            "<div>"
+            "<p>This is <b>bolded</b> paragraph\ntext in a p\ntag here</p>"
+            "<p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p>"
+            "</div>"
+        )
+        self.assertEqual(html, expected)
+
+    def test_code_block_ignores_inline_formatting(self):
+        # Case 2: Blok kodu - formatowanie inline powinno pozostać niezmienione
+        md = (
+            "```\n"
+            "This is text that _should_ remain\n"
+            "the **same** even with inline stuff\n"
+            "```"
+        )
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        
+        expected = (
+            "<div>"
+            "<pre><code>This is text that _should_ remain\n"
+            "the **same** even with inline stuff</code></pre>"
+            "</div>"
+        )
+        self.assertEqual(html, expected)
+
+    def test_unordered_list_items(self):
+        # Case 3: Lista nieuporządkowana
+        md = (
+            "- This is a list item\n"
+            "- This is another list item\n"
+            "- This is a third list item"
+        )
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        
+        expected = (
+            "<div>"
+            "<ul>"
+            "<li>This is a list item</li>"
+            "<li>This is another list item</li>"
+            "<li>This is a third list item</li>"
+            "</ul>"
+            "</div>"
+        )
+        self.assertEqual(html, expected)
+
+    def test_blockquote_multiple_lines(self):
+        # Case 4: Wieloliniowy cytat
+        md = (
+            "> This is a quote\n"
+            "> This is another quote\n"
+            "> This is a third quote"
+        )
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        
+        expected = (
+            "<div>"
+            "<blockquote>This is a quote\n"
+            "This is another quote\n"
+            "This is a third quote</blockquote>"
+            "</div>"
+        )
+        self.assertEqual(html, expected)
+
+    def test_ordered_list_items(self):
+        # Case 5: Lista uporządkowana (numeryczna)
+        md = (
+            "1. This is a list item\n"
+            "2. This is another list item\n"
+            "3. This is a third list item"
+        )
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        
+        expected = (
+            "<div>"
+            "<ol>"
+            "<li>This is a list item</li>"
+            "<li>This is another list item</li>"
+            "<li>This is a third list item</li>"
+            "</ol>"
+            "</div>"
+        )
+        self.assertEqual(html, expected)
+
+    def test_heading_and_multiple_paragraphs(self):
+        # Case 6: Mieszany dokument (Nagłówek H1 + akapity z formatowaniem inline)
+        md = (
+            "# Heading 1\n"
+            "for me\n\n"
+            "ni **et** misero"
+        )
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        
+        expected = (
+            "<div>"
+            "<h1>Heading 1\n"
+            "for me</h1>"
+            "<p>ni <b>et</b> misero</p>"
+            "</div>"
+        )
+        self.assertEqual(html, expected)
 
 if __name__ == "__main__":
     unittest.main()

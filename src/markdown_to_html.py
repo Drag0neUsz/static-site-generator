@@ -62,47 +62,7 @@ def markdown_to_html_node(markdown: str) -> ParentNode:
                     children = [node.text_node_to_html_node() for node in nodes]
                     list_items.append(ParentNode("li", children))
                 html_node.children.append(ParentNode("ol", list_items))
-    print(block_type)
-    print(html_node.to_html())
+    # print(block_type)
+    # print(html_node.to_html())
     return html_node
 
-md = """
-This is **bolded** paragraph
-text in a p
-tag here
-
-This is another paragraph with _italic_ text and `code` here
-
-"""
-markdown_to_html_node(md)
-md = """
-```
-This is text that _should_ remain
-the **same** even with inline stuff
-```
-"""
-markdown_to_html_node(md)
-md = """
-- This is a list item
-- This is another list item
-- This is a third list item
-"""
-markdown_to_html_node(md)
-md = """
-> This is a quote
-> This is another quote
-> This is a third quote
-"""
-markdown_to_html_node(md)
-md = """
-1. This is a list item
-2. This is another list item
-3. This is a third list item
-"""
-markdown_to_html_node(md)
-md = """# Heading 1
-This is a paragraph
-
-ni **et** misero
-"""
-markdown_to_html_node(md)
