@@ -1,0 +1,1 @@
+index.css + /home/kkasp/workspace/EzKape/static-site-generator/src/../static/index.css -> /home/kkasp/workspace/EzKape/static-site-generator/src/../public/index.css

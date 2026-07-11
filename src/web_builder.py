@@ -10,7 +10,7 @@ def extract_title(markdown: str) -> str:
         return found_match.group(1).strip()
     raise Exception("No title found")
 
-def generate_page(from_path, template_path, dest_path) -> str:
+def generate_page(from_path, template_path, dest_path, basepath: str = "/") -> str:
     print(f"generating page from {from_path} to {dest_path} using {template_path}")
     with open(from_path, "r") as f:
         markdown = f.read()
@@ -18,14 +18,14 @@ def generate_page(from_path, template_path, dest_path) -> str:
         template = f.read()
     html_string = markdown_to_html_node(markdown).to_html()
     title = extract_title(markdown)
-    page = template.replace("{{ Title }}", title).replace("{{ Content }}", html_string)
+    page = template.replace("{{ Title }}", title).replace("{{ Content }}", html_string).replace("href=\"/", f"href=\"{basepath}").replace("src=\"/", f"src=\"{basepath}")
     Path(dest_path).parent.mkdir(parents=True, exist_ok=True)
     with open(dest_path, "w") as f:
         f.write(page)
     return page
 
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path) -> str:
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath: str = "/") -> str:
 
     for file in os.listdir(dir_path_content):
         if file.endswith(".md"):
