@@ -6,9 +6,10 @@ from web_builder import generate_pages_recursive
 import sys
 
 def main():
-    basepath = sys.argv[0] if len(sys.argv) > 0 else "/"
+    basepath = sys.argv[1] if len(sys.argv) > 0 else "/"
 
     wd = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+    print(wd)
     copy_files(wd + "/static", wd + "/docs")
     generate_pages_recursive(wd + "/src/content", wd + "/template.html", wd + "/docs", basepath)
 
