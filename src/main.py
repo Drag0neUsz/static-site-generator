@@ -9,7 +9,7 @@ def main():
     basepath = sys.argv[0] if len(sys.argv) > 0 else "/"
 
     wd = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-    copy_files(wd + "/static", wd + "/public")
+    copy_files(wd + "/static", wd + "/docs")
     generate_pages_recursive(wd + "/src/content", wd + "/template.html", wd + "/docs", basepath)
 
 if __name__ == "__main__":

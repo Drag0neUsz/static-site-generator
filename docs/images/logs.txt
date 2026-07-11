@@ -1,0 +1,4 @@
+rivendell.png + /home/kkasp/workspace/EzKape/static-site-generator/src/../static/images/rivendell.png -> /home/kkasp/workspace/EzKape/static-site-generator/src/../docs/images/rivendell.png
+tom.png + /home/kkasp/workspace/EzKape/static-site-generator/src/../static/images/tom.png -> /home/kkasp/workspace/EzKape/static-site-generator/src/../docs/images/tom.png
+glorfindel.png + /home/kkasp/workspace/EzKape/static-site-generator/src/../static/images/glorfindel.png -> /home/kkasp/workspace/EzKape/static-site-generator/src/../docs/images/glorfindel.png
+tolkien.png + /home/kkasp/workspace/EzKape/static-site-generator/src/../static/images/tolkien.png -> /home/kkasp/workspace/EzKape/static-site-generator/src/../docs/images/tolkien.png
